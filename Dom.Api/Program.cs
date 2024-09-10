@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen( x =>
     x.CustomSchemaIds(n => n.FullName); // trata os nomes que serão usadas, pelo fato de repetir requests.
 }); // Adiciona o front-end swagger da API
 builder.Services.AddTransient<ICategoryHandler, CategoryHandler>(); // Injeção de dependência
+builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
 
 var app = builder.Build();
 

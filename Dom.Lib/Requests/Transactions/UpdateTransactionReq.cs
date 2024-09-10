@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dom.Lib.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Dom.Lib.Requests.Transactions;
 
 public class UpdateTransactionReq : Request
 {
+    [Required]
+    public long Id { get; set; }
     [Required(ErrorMessage = "Invalid Title")]
     [MaxLength(75, ErrorMessage = "Title length exceeded max permitted")]
     public string Title { get; set; } = string.Empty;
@@ -16,4 +19,6 @@ public class UpdateTransactionReq : Request
     public string Description { get; set; } = string.Empty;
     public decimal Amount { get; set; } = 0;
     public long CategoryId { get; set; } = 0;
+    public DateTime? PaydAt { get; set; } = null;
+    public ETransactionType Type { get; set; } = ETransactionType.Withdraw;
 }

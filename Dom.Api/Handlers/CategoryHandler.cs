@@ -81,19 +81,15 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
             var category = await context.Categories.FirstOrDefaultAsync(c => c.Id == request.Id && c.UserId == request.UserId);
 
             if (category == null)
-            {
                 return new Response<Category?>(null, 404, "No results for this Id");
-            }
-            else
-            {
-                category.Title = request.Title;
-                category.Description = request.Description;
 
-                context.Categories.Update(category);
-                await context.SaveChangesAsync();
+            category.Title = request.Title;
+            category.Description = request.Description;
 
-                return new Response<Category?>(category, message: "Category successfully updated");
-            }
+            context.Categories.Update(category);
+            await context.SaveChangesAsync();
+
+            return new Response<Category?>(category, message: "Category successfully updated");
         }
         catch 
         {
@@ -108,16 +104,12 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
             var category = await context.Categories.FirstOrDefaultAsync(c => c.Id == request.Id && c.UserId == request.UserId);
 
             if (category == null)
-            {
                 return new Response<Category?>(null, 404, "No results for this Id");
-            }
-            else
-            {
-                context.Categories.Remove(category);
-                await context.SaveChangesAsync();
+            
+            context.Categories.Remove(category);
+            await context.SaveChangesAsync();
 
-                return new Response<Category?>(category, message: "Category successfully removed");
-            }
+            return new Response<Category?>(category, message: "Category successfully removed");            
         }
         catch
         {
