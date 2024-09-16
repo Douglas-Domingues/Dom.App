@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Dom.Api.Common.Api;
+﻿using Dom.Api.Common.Api;
 using Dom.Api.Endpoints.Categories;
 using Dom.Api.Endpoints.Transactions;
 
@@ -12,8 +11,13 @@ public static class Endpoint
         var endpoints = app
             .MapGroup(""); //tudo feito no grupo é aplicado para todas as rotas
 
+        endpoints.MapGroup("/")
+            .WithTags("Health Check")
+            .MapGet("", () => new { message = "OK" });
+        
         endpoints.MapGroup("v1/categories")
             .WithTags("Categories")
+            .RequireAuthorization()
             .MapEndpoint<CreateCategoryEp>()
             .MapEndpoint<GetCategoryByIdEp>()
             .MapEndpoint<GetAllCategoriesEp>()
@@ -22,6 +26,7 @@ public static class Endpoint
 
         endpoints.MapGroup("v1/transactions")
             .WithTags("Transactions")
+            .RequireAuthorization()
             .MapEndpoint<CreateTransactionEp>()
             .MapEndpoint<GetTransactionByIdEp>()
             .MapEndpoint<GetTransactionsByPeriodEp>()

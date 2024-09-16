@@ -3,6 +3,7 @@ using Dom.Lib.Handlers;
 using Dom.Lib.Models;
 using Dom.Lib.Requests.Transactions;
 using Dom.Lib.Responses;
+using System.Security.Claims;
 
 namespace Dom.Api.Endpoints.Transactions;
 
@@ -15,11 +16,11 @@ public class GetTransactionByIdEp : IEndpoint
         .Produces<Response<Transaction?>>()
         .WithOrder(2);
 
-    private static async Task<IResult> HandleAsync(ITransactionHandler handler, long id)
+    private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ITransactionHandler handler, long id)
     {
         var request = new GetTransactionByIdReq
         {
-            UserId = "doug-dev",
+            UserId = user.Identity?.Name ?? string.Empty,
             Id = id
         };
 

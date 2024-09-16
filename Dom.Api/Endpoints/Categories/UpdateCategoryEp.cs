@@ -3,6 +3,7 @@ using Dom.Lib.Handlers;
 using Dom.Lib.Models;
 using Dom.Lib.Requests.Categories;
 using Dom.Lib.Responses;
+using System.Security.Claims;
 
 namespace Dom.Api.Endpoints.Categories;
 
@@ -15,9 +16,9 @@ public class UpdateCategoryEp : IEndpoint
         .Produces<Response<Category?>>()
         .WithOrder(4);
 
-    private static async Task<IResult> HandleAsync(ICategoryHandler handler, UpdateCategoryReq request, long id)
+    private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ICategoryHandler handler, UpdateCategoryReq request, long id)
     {
-        request.UserId = "doug-dev";
+        request.UserId = user.Identity?.Name ?? string.Empty;
         request.Id = id;
 
         var result = await handler.UpdateAsync(request);

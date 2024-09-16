@@ -4,6 +4,7 @@ using Dom.Lib.Models;
 using Dom.Lib.Requests.Categories;
 using Dom.Lib.Responses;
 using Microsoft.EntityFrameworkCore.Query;
+using System.Security.Claims;
 
 namespace Dom.Api.Endpoints.Categories;
 
@@ -16,11 +17,11 @@ public class GetCategoryByIdEp : IEndpoint
         .Produces<Response<Category?>>()
         .WithOrder(2);
 
-    private static async Task<IResult> HandleAsync(ICategoryHandler handler, long id)
+    private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ICategoryHandler handler, long id)
     {
         var request = new GetCategoryByIdReq
         {
-            UserId = "doug-dev",
+            UserId = user.Identity?.Name ?? string.Empty,
             Id = id
         };        
 

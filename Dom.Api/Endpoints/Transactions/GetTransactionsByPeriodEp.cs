@@ -1,10 +1,10 @@
 ﻿using Dom.Api.Common.Api;
 using Dom.Lib.Handlers;
 using Dom.Lib.Models;
-using Dom.Lib.Requests.Categories;
 using Dom.Lib.Requests.Transactions;
 using Dom.Lib.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Dom.Api.Endpoints.Transactions;
 
@@ -20,6 +20,7 @@ public class GetTransactionsByPeriodEp : IEndpoint
     }
 
     private static async Task<IResult> HandleAsync(
+        ClaimsPrincipal user,
         ITransactionHandler handler,
         [FromQuery] int pageNumber,
         [FromQuery] int pageSize,
@@ -32,7 +33,7 @@ public class GetTransactionsByPeriodEp : IEndpoint
             PageSize = pageSize,
             StartDate = startDate,
             EndDate = endDate,
-            UserId = "doug-dev",
+            UserId = user.Identity?.Name ?? string.Empty,
         };
 
         var result = await handler.GetByPeriodAsync(request);

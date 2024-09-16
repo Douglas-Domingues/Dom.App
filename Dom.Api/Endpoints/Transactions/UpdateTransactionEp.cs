@@ -1,9 +1,9 @@
 ﻿using Dom.Api.Common.Api;
 using Dom.Lib.Handlers;
 using Dom.Lib.Models;
-using Dom.Lib.Requests.Categories;
 using Dom.Lib.Requests.Transactions;
 using Dom.Lib.Responses;
+using System.Security.Claims;
 
 namespace Dom.Api.Endpoints.Transactions;
 
@@ -16,9 +16,9 @@ public class UpdateTransactionEp : IEndpoint
         .Produces<Response<Transaction?>>()
         .WithOrder(4);
 
-    private static async Task<IResult> HandleAsync(ITransactionHandler handler, UpdateTransactionReq request, long id)
+    private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ITransactionHandler handler, UpdateTransactionReq request, long id)
     {
-        request.UserId = "doug-dev";
+        request.UserId = user.Identity?.Name ?? string.Empty;
         request.Id = id;
 
         var result = await handler.UpdateAsync(request);

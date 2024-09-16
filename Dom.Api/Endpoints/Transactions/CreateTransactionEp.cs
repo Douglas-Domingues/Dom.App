@@ -3,6 +3,7 @@ using Dom.Lib.Handlers;
 using Dom.Lib.Models;
 using Dom.Lib.Requests.Transactions;
 using Dom.Lib.Responses;
+using System.Security.Claims;
 
 namespace Dom.Api.Endpoints.Transactions;
 
@@ -15,9 +16,9 @@ public class CreateTransactionEp : IEndpoint
         .Produces<Response<Transaction?>>()
         .WithOrder(1);
 
-    private static async Task<IResult> HandleAsync(ITransactionHandler handler, CreateTransactionReq request)
+    private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ITransactionHandler handler, CreateTransactionReq request)
     {
-        request.UserId = "doug-dev";
+        request.UserId = user.Identity?.Name ?? string.Empty;
         var result = await handler.CreateAsync(request);
 
         return result.IsSuccess

@@ -4,6 +4,7 @@ using Dom.Lib.Models;
 using Dom.Lib.Requests.Categories;
 using Dom.Lib.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace Dom.Api.Endpoints.Categories;
@@ -19,11 +20,11 @@ public class GetAllCategoriesEp : IEndpoint
         .WithOrder(3);
     }
 
-    private static async Task<IResult> HandleAsync(ICategoryHandler handler)
+    private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ICategoryHandler handler)
     {
         var request = new GetAllCategoriesReq
         {
-            UserId = "doug-dev",
+            UserId = user.Identity?.Name ?? string.Empty
         };
 
         var result = await handler.GetAllAsync(request);
