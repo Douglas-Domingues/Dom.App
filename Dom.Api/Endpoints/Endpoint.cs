@@ -1,6 +1,8 @@
 ﻿using Dom.Api.Common.Api;
 using Dom.Api.Endpoints.Categories;
+using Dom.Api.Endpoints.Identity;
 using Dom.Api.Endpoints.Transactions;
+using Dom.Api.Models;
 
 namespace Dom.Api.Endpoints;
 
@@ -32,6 +34,16 @@ public static class Endpoint
             .MapEndpoint<GetTransactionsByPeriodEp>()
             .MapEndpoint<UpdateTransactionEp>()
             .MapEndpoint<DeleteTransactionEp>();
+
+        endpoints.MapGroup("v1/identity")
+            .WithTags("Identity")
+            .MapIdentityApi<AppUser>();
+
+        endpoints.MapGroup("v1/identity")
+            .WithTags("Identity")
+            .MapEndpoint<LogoutEp>()
+            .MapEndpoint<GetRolesEp>();
+
     }
 
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)
