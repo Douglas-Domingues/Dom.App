@@ -1,7 +1,7 @@
-﻿@page "/login"
+﻿@page "/signup"
 @layout HeadlessLayout
 
-<PageTitle>DomApp - Entrar</PageTitle>
+<PageTitle>DomApp - Cadastro</PageTitle>
 
 <MudGrid Justify="Justify.Center">
     <MudItem xs="12" sm="12" md="8" lg="6" xl="4" xxl="3">
@@ -19,9 +19,9 @@
             </MudForm>
 
             <div class="d-flex mt-8">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary">Entrar</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary">Criar Conta</MudButton>
                 <MudSpacer />
-                <MudButton Href="SignUp">Cadastre-se</MudButton>
+                <MudButton Href="/login">Já tenho uma conta</MudButton>
             </div>
 
         </MudPaper>
