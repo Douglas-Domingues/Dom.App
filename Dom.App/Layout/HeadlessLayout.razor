@@ -4,6 +4,11 @@
 <MudSnackbarProvider />
 
 <MudLayout>
+    <MudAppBar>
+        <h1>DomApp</h1>
+        <MudSpacer />
+        <MudSwitch @bind-Value="@_isDarkMode" />
+    </MudAppBar>
     <MudMainContent>
         <MudContainer>
             @Body
@@ -12,5 +17,23 @@
 </MudLayout>
 
 @code {
-    
+    private bool _isDarkMode = true;
+    private MudThemeProvider _mudThemeProvider = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+            StateHasChanged();
+        }
+    }
+
+    private Task OnSystemPreferenceChanged(bool newValue)
+    {
+        _isDarkMode = newValue;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 }

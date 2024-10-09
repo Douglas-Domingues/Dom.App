@@ -1,5 +1,6 @@
 ﻿using Dom.Api.Common.Api;
 using Dom.Api.Models;
+using Dom.Lib.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
@@ -21,13 +22,13 @@ public class GetRolesEp : IEndpoint
         var identity = (ClaimsIdentity)user.Identity;
         var roles = identity
         .FindAll(identity.RoleClaimType)
-        .Select(c => new
+        .Select(c => new RoleClaim
         {
-            c.Issuer,
-            c.OriginalIssuer,
-            c.Type,
-            c.Value,
-            c.ValueType
+            Issuer = c.Issuer,
+            OriginalIssuer = c.OriginalIssuer,
+            Type = c.Type,
+            Value = c.Value,
+            ValueType = c.ValueType
         })
         .ToList();
 
