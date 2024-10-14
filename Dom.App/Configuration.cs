@@ -4,6 +4,10 @@ namespace Dom.App;
 
 public static class Configuration
 {
+    public const string HttpClientName = "DomApp";
+
+    public static string BackendUrl { get; set; } = "http://localhost:5148";
+
     public static MudTheme Theme = new()
     {
         Typography = new Typography

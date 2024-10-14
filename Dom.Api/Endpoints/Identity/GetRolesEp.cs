@@ -29,8 +29,7 @@ public class GetRolesEp : IEndpoint
             Type = c.Type,
             Value = c.Value,
             ValueType = c.ValueType
-        })
-        .ToList();
+        }).ToList();
 
         return Task.FromResult<IResult>(TypedResults.Json(roles));
     }
