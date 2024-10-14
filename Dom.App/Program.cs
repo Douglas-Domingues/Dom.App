@@ -4,6 +4,8 @@ using Dom.App;
 using MudBlazor.Services;
 using Dom.App.Security;
 using Microsoft.AspNetCore.Components.Authorization;
+using Dom.Lib.Handlers;
+using Dom.App.Handler;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -25,5 +27,7 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 {
     opt.BaseAddress = new Uri(Configuration.BackendUrl);
 }).AddHttpMessageHandler<CookieHandler>();
+
+builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 
 await builder.Build().RunAsync();

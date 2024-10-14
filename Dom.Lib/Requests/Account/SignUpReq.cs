@@ -9,10 +9,10 @@ namespace Dom.Lib.Requests.Account;
 
 public class SignUpReq : Request
 {
-    [Required(ErrorMessage = "E-mail required")]
-    [EmailAddress(ErrorMessage = "Invalid E-mail")]
+    [Required(ErrorMessage = "Obrigatório preenchimento de um e-mail")]
+    [EmailAddress(ErrorMessage = "E-mail inválido")]
     public string Email { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "E-mail required")]
+    [Required(ErrorMessage = "Obrigatório preenchimento de uma senha")]
     public string Password { get; set; } = string.Empty;
 }
