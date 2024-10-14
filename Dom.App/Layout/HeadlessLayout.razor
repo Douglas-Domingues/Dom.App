@@ -7,14 +7,6 @@
     <MudSnackbarProvider />
 
     <MudLayout>
-        <MudAppBar>
-            <h1>DomApp</h1>
-            <MudSpacer />
-            <MudSwitch
-                @bind-Value="@_isDarkMode"
-                ThumbIcon="@(_isDarkMode ? Icons.Material.Rounded.DarkMode : Icons.Material.Rounded.LightMode)"
-                ThumbIconColor="Color.Primary" />
-        </MudAppBar>
         <MudMainContent>
             <MudContainer>
                 @Body

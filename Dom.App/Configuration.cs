@@ -6,7 +6,7 @@ public static class Configuration
 {
     public const string HttpClientName = "DomApp";
 
-    public static string BackendUrl { get; set; } = "http://localhost:5148";
+    public static string BackendUrl { get; set; } = "";
 
     public static MudTheme Theme = new()
     {

@@ -1,22 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider
-    @ref="@_mudThemeProvider"
-    @bind-IsDarkMode="_isDarkMode"
-    Theme="Configuration.Theme"/>
-<MudSnackbarProvider />
+<CascadingValue Value="_isDarkMode">
+        <MudThemeProvider
+        @ref="@_mudThemeProvider"
+        @bind-IsDarkMode="_isDarkMode"
+        Theme="Configuration.Theme"/>
+    <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar>DomApp
-        <MudSpacer />
-        <MudSwitch @bind-Value= "@_isDarkMode" />
-    </MudAppBar>
-    <MudMainContent>
-        <MudContainer>
-            @Body
-        </MudContainer>
-    </MudMainContent>
+    <MudLayout>
+        <MudAppBar>
+            <h1>DomApp</h1>
+            <MudSpacer />
+            <MudSwitch @bind-Value="@_isDarkMode"
+                       ThumbIcon="@(_isDarkMode ? Icons.Material.Rounded.DarkMode : Icons.Material.Rounded.LightMode)"
+                       ThumbIconColor="Color.Primary" />
+        </MudAppBar>
+        <MudMainContent>
+            <MudContainer>
+                @Body
+            </MudContainer>
+        </MudMainContent>
 </MudLayout>
+</CascadingValue>
 
 @code{
     private bool _isDarkMode = true;
