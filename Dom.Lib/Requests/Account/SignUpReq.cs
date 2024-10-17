@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dom.Lib.Requests.Account;
 
-public class SignUpReq : Request
+public class SignUpReq
 {
     [Required(ErrorMessage = "Obrigatório preenchimento de um e-mail")]
     [EmailAddress(ErrorMessage = "E-mail inválido")]

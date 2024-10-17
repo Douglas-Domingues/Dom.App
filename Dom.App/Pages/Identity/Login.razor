@@ -1,6 +1,6 @@
 ﻿@page "/login"
 @layout HeadlessLayout
-@inherits LayoutComponentBase
+@inherits LoginPage
 
 <PageTitle>DomApp - Entrar</PageTitle>
 
@@ -13,22 +13,42 @@
                     width="250" />
             </div>
 
-            <MudForm @ref="_mudForm">
-                <MudTextField T="string" Label="E-mail" Required="true" RequiredError="E-mail inválido" Validation="@(new EmailAddressAttribute{ ErrorMessage = "E-mail inválido"})" />
-                <MudTextField T="string" Label="Senha" InputType="InputType.Password" Required="true" RequiredError="Senha inválida" Validation="@(new EmailAddressAttribute{ ErrorMessage = "Senha inválida"})" />
-            </MudForm>
+            <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+                <DataAnnotationsValidator/> <!-- Pode-se usar o <ValidationSummary> para apresentar todos os campos inválidos na validação-->
+                
+                <MudTextField
+                    T="string"
+                    Label="E-mail"
+                    HelperText="Campo obrigatório"
+                    InputType="InputType.Email"
+                    @bind-Value="InputModel.Email"
+                    For="@(() => InputModel.Email)" />
+                <MudTextField
+                    T="string"
+                    Label="Senha"
+                    HelperText="Campo obrigatório"
+                    InputType="InputType.Password"
+                    @bind-Value="InputModel.Password"
+                    For="@(() => InputModel.Password)" />
 
-            <div class="d-flex mt-8">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary">Entrar</MudButton>
-                <MudSpacer />
-                <MudButton Href="SignUp">Cadastre-se</MudButton>
-            </div>
+                <div class="d-flex mt-8">
+                    @if (IsBusy)
+                    {
+                        <MudProgressCircular Color="Color.Info" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary">Entrar</MudButton>
+                        <MudSpacer />
+                        <MudButton Href="SignUp">Cadastre-se</MudButton>
+                    }
+                </div>
+        </EditForm>
 
         </MudPaper>
     </MudItem>
 </MudGrid>
 
 @code {
-    MudForm? _mudForm;
     [CascadingParameter] public bool _isDarkMode { get; set; }
 }

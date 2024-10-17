@@ -14,7 +14,7 @@
                     width="250" />
             </div>
 
-            <EditForm Model="InputModel" OnValidSubmit="OnValidSubmitAsync">
+            <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
                 <DataAnnotationsValidator/> <!-- Pode-se usar o <ValidationSummary> para apresentar todos os campos inválidos na validação-->
                 
                 <MudTextField
@@ -41,7 +41,7 @@
                     {
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Criar Conta</MudButton>
                         <MudSpacer />
-                        <MudButton Href="/login">Já tenho uma conta</MudButton>
+                        <MudButton Href="/login">Já possuo conta</MudButton>
                     }
                 </div>
             </EditForm>

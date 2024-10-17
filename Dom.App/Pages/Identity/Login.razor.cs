@@ -1,14 +1,14 @@
-﻿using Dom.Lib.Handlers;
+﻿using Dom.App.Security;
+using Dom.Lib.Handlers;
 using Dom.Lib.Requests.Account;
-using Dom.Lib.Responses;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 
 namespace Dom.App.Pages.Identity;
 
-public partial class SignUpPage : ComponentBase
+public partial class LoginPage : ComponentBase
 {
+
     #region Dependencies
 
     [Inject]
@@ -18,13 +18,13 @@ public partial class SignUpPage : ComponentBase
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
     [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+    public ICookieAuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
 
     #endregion
 
     #region Properties
 
-    public SignUpReq InputModel { get; set; } = new();
+    public SignInReq InputModel { get; set; } = new();
     public bool IsBusy { get; set; } = false;
 
     #endregion
@@ -52,15 +52,14 @@ public partial class SignUpPage : ComponentBase
 
         try
         {
-            var result = await AccountHandler.SignUpAsync(InputModel);
+            var result = await AccountHandler.SignInAsync(InputModel);
 
-            if(result.IsSuccess)
+            if (result.IsSuccess)
             {
-                SnackBar.Add(result.Message, Severity.Success);
-                NavigationManager.NavigateTo("/login");
+                NavigationManager.NavigateTo("/");
             }
-
-            SnackBar.Add(result.Message, Severity.Error);
+            else
+                SnackBar.Add(result.Message, Severity.Error);
         }
         catch (Exception ex)
         {

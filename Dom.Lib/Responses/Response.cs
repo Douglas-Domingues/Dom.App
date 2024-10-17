@@ -12,7 +12,7 @@ public class Response<T>
 {
     private readonly int _code;
     public T? Data { get; set; }
-    public string? Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     [JsonConstructor]
     public Response()
@@ -24,7 +24,7 @@ public class Response<T>
     { 
         _code = code;
         Data = data;
-        Message = message;
+        Message = message ?? string.Empty;
     }
 
     [JsonIgnore]

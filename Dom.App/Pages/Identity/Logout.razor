@@ -1,0 +1,26 @@
+﻿@page "/sair"
+@inherits LogoutPage
+@layout HeadlessLayout
+
+<PageTitle>DomApp - Sair</PageTitle>
+
+<MudText Typo="Typo.h3">Encerrando sessão...</MudText>
+<MudPaper Class="pa-8 mt-4">
+    <div class="d-flex justify-center pb-8 pt-8">
+        <img src="@(_isDarkMode ? "~/img/DomApp-black.png" : "~/img/DomApp.png")"
+             alt="DomApp - Controle Financeiro"
+             width="250" />
+    </div>
+    <MudAlert Severity="Severity.Info">
+        <div>
+            Sessão encerrada...
+            <MudButton Variant="Variant.Text" Href="/">
+                Entrar novamente
+            </MudButton>
+        </div>        
+    </MudAlert>
+</MudPaper>
+
+@code {
+    [CascadingParameter] public bool _isDarkMode { get; set; }
+}
